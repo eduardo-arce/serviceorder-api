@@ -1,6 +1,6 @@
 ﻿using Minio;
-using SO.Infra.Repository.Storage;
-using SO.Service.IRepository.Storage;
+using SO.Infra.Storage;
+using SO.Service.Storage;
 
 namespace SO.Api.Dependence.Shared
 {

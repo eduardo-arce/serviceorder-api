@@ -4,7 +4,7 @@ using SO.Domain.Entity;
 using SO.Domain.IUseCase.User;
 using SO.Service.Adapter.Cryptography;
 using SO.Service.Adapter.Validator;
-using SO.Service.IRepository.User;
+using SO.Service.IRepository;
 using SO.Shared.Util;
 
 namespace SO.Service.UseCase.User
@@ -12,21 +12,18 @@ namespace SO.Service.UseCase.User
     public class SignUp : ISignUp
     {
         private IEmailValidator _emailValidator;
-        private ICheckEmailRepository _checkEmail;
+        private readonly IUserRepository _userRepository;
         private ICryptography _cryptography;
-        private ISaveUserRepository _saveUser;
 
         public SignUp(
             IEmailValidator emailValidator,
-            ICheckEmailRepository checkEmail,
-            ICryptography cryptography,
-            ISaveUserRepository saveUser
+            IUserRepository userRepository,
+            ICryptography cryptography
         )
         {
             _emailValidator = emailValidator;
-            _checkEmail = checkEmail;
+            _userRepository = userRepository;
             _cryptography = cryptography;
-            _saveUser = saveUser;
         }
 
         public async Task<Result<UserEntity>> Execute(SignUpInputDTO input)
@@ -41,7 +38,9 @@ namespace SO.Service.UseCase.User
                 );
             }
 
-            bool isAlreadyInUse = await _checkEmail.Check(input.Email);
+            bool isAlreadyInUse = await _userRepository.FindFirstOrDefaultAsync(
+                item => item.Email == input.Email || item.UserName == input.UserName
+             ) != null;
 
             if (isAlreadyInUse is true)
             {
@@ -51,15 +50,14 @@ namespace SO.Service.UseCase.User
                 );
             }
 
-            string pattern = @"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
+            string pattern = @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$";
             Regex regex = new Regex(pattern);
 
             if (regex.IsMatch(input.Password) is not true)
             {
                 return Result<UserEntity>.OperationalError(
                     content: null,
-                    message:
-                        "password length must be higher than 8 and contain letters and numbers!!!"
+                    message: "password length must be higher than 8 and contain letters and numbers!!!"
                 );
             }
 
@@ -75,7 +73,7 @@ namespace SO.Service.UseCase.User
                 isActive: true
             );
 
-            await _saveUser.Save(newUser);
+            await _userRepository.CreateAsync(newUser);
 
             newUser.Password = string.Empty;
 

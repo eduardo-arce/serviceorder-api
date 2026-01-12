@@ -12,13 +12,15 @@ namespace SO.Domain.Entity
     {
         public ServiceOrderEntity(
             string description,
-            string userEntityId            
+            string userEntityId
         )
         {
             Id = Guid.NewGuid().ToString();
             Description = description;
             UserEntityId = userEntityId;
             CreatedAt = DateTime.Now;
+            CheckListResults = new List<CheckListResultEntity>();
+            Images = new List<ImageEntity>();
         }
 
         public string Id { get; private set; } = null!;
@@ -26,8 +28,9 @@ namespace SO.Domain.Entity
         public string UserEntityId { get; private set; }
         public DateTime CreatedAt { get; private set; }
 
-        [JsonIgnore]
-        public ICollection<CheckListResultEntity> CheckListResults { get; set; }
+        public ICollection<CheckListResultEntity> CheckListResults { get; private set; }
+
+        public ICollection<ImageEntity> Images { get; private set; }
 
         [JsonIgnore]
         [ForeignKey(nameof(UserEntityId))]

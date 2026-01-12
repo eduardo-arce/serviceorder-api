@@ -7,7 +7,8 @@ namespace SO.Api.Dependence.Shared
     {
         public static void Initialize(WebApplicationBuilder builder)
         {
-            var connectionString = builder.Configuration["Database:ConnectionString"];
+            var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING") ??
+                builder.Configuration["Database:ConnectionString"];
 
             builder.Services.AddDbContext<DatabaseContext>(options =>
             {

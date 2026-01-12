@@ -37,6 +37,63 @@ namespace SO.Infra.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CheckList");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "7597f070-ef1f-4b5e-8fb6-57fc4eec30ee",
+                            IsActive = true,
+                            Question = "Equipamento liga corretamente"
+                        },
+                        new
+                        {
+                            Id = "1ce1b2f4-e6e1-4806-9c89-922e95b9abdb",
+                            IsActive = false,
+                            Question = "Apresenta danos físicos visíveis"
+                        },
+                        new
+                        {
+                            Id = "cecf6d13-871b-453a-b008-74e4ac2cd207",
+                            IsActive = true,
+                            Question = "Cabos e conexões estão em bom estado"
+                        },
+                        new
+                        {
+                            Id = "aaae8562-0eb8-44ce-af4b-392567fbf49e",
+                            IsActive = true,
+                            Question = "Teste funcional foi realizado após o serviço"
+                        },
+                        new
+                        {
+                            Id = "2a7972e8-ec2f-434a-b51c-be7d6dc0606e",
+                            IsActive = false,
+                            Question = "Cliente recebeu orientações de uso"
+                        });
+                });
+
+            modelBuilder.Entity("SO.Domain.Entity.CheckListResultEntity", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CheckListId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsOk")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("ServiceOrderId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CheckListId");
+
+                    b.HasIndex("ServiceOrderId");
+
+                    b.ToTable("CheckListResult");
                 });
 
             modelBuilder.Entity("SO.Domain.Entity.ImageEntity", b =>
@@ -61,31 +118,6 @@ namespace SO.Infra.Migrations
                     b.HasIndex("ServiceOrderId");
 
                     b.ToTable("Image");
-                });
-
-            modelBuilder.Entity("SO.Domain.Entity.MaintenanceEntity", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<string>("CheckListId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsOk")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("ServiceOrderId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CheckListId");
-
-                    b.HasIndex("ServiceOrderId");
-
-                    b.ToTable("Maintenance");
                 });
 
             modelBuilder.Entity("SO.Domain.Entity.ServiceOrderEntity", b =>
@@ -147,232 +179,232 @@ namespace SO.Infra.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6e4676f0-1f20-44d2-9945-97cc2318d0c3",
-                            CreatedAt = new DateTime(2026, 1, 10, 18, 31, 21, 313, DateTimeKind.Local).AddTicks(6067),
+                            Id = "541b4a98-3fe5-4bbb-9ea0-83186d8cce59",
+                            CreatedAt = new DateTime(2026, 1, 11, 17, 1, 15, 75, DateTimeKind.Local).AddTicks(9228),
                             Email = "alice.smith@example.com",
                             IsActive = true,
                             IsAdmin = true,
-                            Password = "$2a$11$JdMs5jqZvmaG4Yzze8NRpuGc2Zh1eE0iScoNTFlhIgKh569q6djGa",
+                            Password = "$2a$11$wHq4MvtWz6xhGZPrAUXIY.7nUCTY/jycbEt2HBMSXcsbMFXVJBGk2",
                             UserName = "alice.smith"
                         },
                         new
                         {
-                            Id = "e29b77ff-6785-4ba6-8717-925f74c5a808",
-                            CreatedAt = new DateTime(2026, 1, 10, 18, 31, 21, 442, DateTimeKind.Local).AddTicks(9902),
+                            Id = "ca168f0a-fef9-4959-b5d8-9238e5c8a2de",
+                            CreatedAt = new DateTime(2026, 1, 11, 17, 1, 15, 212, DateTimeKind.Local).AddTicks(1595),
                             Email = "bob_johnson@example.com",
                             IsActive = true,
                             IsAdmin = true,
-                            Password = "$2a$11$HmbrlH7Zz/wBsZ1EWaN8y.XhkDhuStZUQwoSgXxOKS5xp8LwUZnce",
+                            Password = "$2a$11$.DQmkAp.aOJ2yfSmms68yOscYrk9n9rTPof0qBai/YFDeCagP9T6u",
                             UserName = "bob_johnson"
                         },
                         new
                         {
-                            Id = "2d5b00f1-ad89-437f-bbba-ee96bb111361",
-                            CreatedAt = new DateTime(2026, 1, 10, 18, 31, 21, 571, DateTimeKind.Local).AddTicks(2813),
+                            Id = "e9aa49df-863d-4287-aa77-d88d1a98c2df",
+                            CreatedAt = new DateTime(2026, 1, 11, 17, 1, 15, 343, DateTimeKind.Local).AddTicks(4759),
                             Email = "carol.williams@example.com",
                             IsActive = true,
                             IsAdmin = false,
-                            Password = "$2a$11$MP5EAiiATJ.tTVdZspbkMety7RnE9B2vAG8/0uxdGhCh4jZgS23uG",
+                            Password = "$2a$11$eSPh9STq0aDW7IC1OWegHO90Ylm5493qXmwwBmGf5qozIv/cFRJsi",
                             UserName = "carol.williams"
                         },
                         new
                         {
-                            Id = "e32b6ac9-c693-4fdd-997a-13e94dbad440",
-                            CreatedAt = new DateTime(2026, 1, 10, 18, 31, 21, 699, DateTimeKind.Local).AddTicks(7437),
+                            Id = "4f0a0726-a12b-48bb-a0a3-7ae442037b58",
+                            CreatedAt = new DateTime(2026, 1, 11, 17, 1, 15, 471, DateTimeKind.Local).AddTicks(7286),
                             Email = "david_brown@example.com",
                             IsActive = true,
                             IsAdmin = false,
-                            Password = "$2a$11$qf8RSRTYylZcgCb/hjQAaOt7IfMRAJlP9FCRgDRWdSKH5NKoLTg.G",
+                            Password = "$2a$11$Pie2dwRfYWCdGN.armTwPuP8Mr7//m/1e6u9l9E9ZKK43HtBSwaIW",
                             UserName = "david_brown"
                         },
                         new
                         {
-                            Id = "2434f087-46d1-4ca5-b788-ed0ab20f214a",
-                            CreatedAt = new DateTime(2026, 1, 10, 18, 31, 21, 828, DateTimeKind.Local).AddTicks(6454),
+                            Id = "b91b9d4e-b662-416d-b8f2-eba4fa02343b",
+                            CreatedAt = new DateTime(2026, 1, 11, 17, 1, 15, 600, DateTimeKind.Local).AddTicks(1384),
                             Email = "emily.jones@example.com",
                             IsActive = true,
                             IsAdmin = false,
-                            Password = "$2a$11$bWhdPJfUemoywJAywwg9M.G9KNHFTLrxcPQRvMGi7oN1swMvBaYmu",
+                            Password = "$2a$11$uPgur8Du2pq7JzFY9jumje/9Am8sO4nSpEO8dzs..RPkaVhwIFpFm",
                             UserName = "emily.jones"
                         },
                         new
                         {
-                            Id = "eca786c0-3d92-4abd-8214-cef90c05f5e1",
-                            CreatedAt = new DateTime(2026, 1, 10, 18, 31, 21, 959, DateTimeKind.Local).AddTicks(4085),
+                            Id = "a783ffd0-e771-4060-b200-84f50f371e9e",
+                            CreatedAt = new DateTime(2026, 1, 11, 17, 1, 15, 728, DateTimeKind.Local).AddTicks(8251),
                             Email = "frank.miller@example.com",
                             IsActive = false,
                             IsAdmin = false,
-                            Password = "$2a$11$sO3YguQ/fOHCc1G9d.F4ze6dfmbdEEiO8L26t.SDEJrW8isAIUNiK",
+                            Password = "$2a$11$FNNEWsQncgUNNOJznzJKbeycb8tRIST46u7eia4npdwbYt7I/DVlK",
                             UserName = "frank_miller"
                         },
                         new
                         {
-                            Id = "7bc8c810-2444-4c7a-827d-a4c5372aa3d3",
-                            CreatedAt = new DateTime(2026, 1, 10, 18, 31, 22, 93, DateTimeKind.Local).AddTicks(1705),
+                            Id = "0659da46-c0c0-4bfe-965f-3e17ad11bcb7",
+                            CreatedAt = new DateTime(2026, 1, 11, 17, 1, 15, 859, DateTimeKind.Local).AddTicks(9017),
                             Email = "grace.davis@example.com",
                             IsActive = true,
                             IsAdmin = false,
-                            Password = "$2a$11$dzt5ffgPNIPkLAR4wBx7ae6AG.10HVDV70gLpbFSuBwX7jMzcujtq",
+                            Password = "$2a$11$s9FaF0Az1r/P19JWy.DBKu8893MuoYXRX/IH1b.sU52n.F9kgUD8O",
                             UserName = "grace.davis"
                         },
                         new
                         {
-                            Id = "b35f35e4-7bf4-4d6e-a8a7-887e1e69f1fd",
-                            CreatedAt = new DateTime(2026, 1, 10, 18, 31, 22, 225, DateTimeKind.Local).AddTicks(9320),
+                            Id = "867c022f-c506-46e1-9507-7975d4c7b13b",
+                            CreatedAt = new DateTime(2026, 1, 11, 17, 1, 15, 988, DateTimeKind.Local).AddTicks(9127),
                             Email = "henry_garcia@example.com",
                             IsActive = true,
                             IsAdmin = false,
-                            Password = "$2a$11$J0DSbLtj5bEIJuTQrkhfueNj3dFHbBovC50WyFTSRAUdT/4atii1S",
+                            Password = "$2a$11$yXXVZKmpGvB0EU2QECPno.DAcuPMIWfpKj5EmIJL9Jv3NeFw/nGQW",
                             UserName = "henry_garcia"
                         },
                         new
                         {
-                            Id = "b152f611-0a44-4a61-8e1b-914bb963e17d",
-                            CreatedAt = new DateTime(2026, 1, 10, 18, 31, 22, 359, DateTimeKind.Local).AddTicks(8265),
+                            Id = "ff643df4-d9bd-4f01-9c91-8e03b6f8f749",
+                            CreatedAt = new DateTime(2026, 1, 11, 17, 1, 16, 117, DateTimeKind.Local).AddTicks(8959),
                             Email = "isabella.rodriguez@example.com",
                             IsActive = true,
                             IsAdmin = false,
-                            Password = "$2a$11$Eo4S27.UD4Vp3ZHMrojRYeWRIPP7bi4vKJBwEAcR8HSsiaFdB6GxC",
+                            Password = "$2a$11$DJIbBQW4luqPN8VUgU3IA.91JVLRb73Grl2HALEJhJvwMYHXxC.2.",
                             UserName = "isabella.rodriguez"
                         },
                         new
                         {
-                            Id = "66eff188-9919-4c94-9734-4334b2d4b9ef",
-                            CreatedAt = new DateTime(2026, 1, 10, 18, 31, 22, 505, DateTimeKind.Local).AddTicks(2136),
+                            Id = "82ca5889-8feb-49de-9fbc-df51b3c4fe21",
+                            CreatedAt = new DateTime(2026, 1, 11, 17, 1, 16, 246, DateTimeKind.Local).AddTicks(257),
                             Email = "jack.martin@example.com",
                             IsActive = false,
                             IsAdmin = false,
-                            Password = "$2a$11$t4F7HJTbj9jtpgCr0xlfJua0XNJFtKqKfWM0m3xmJdkZ.IG3YWlkC",
+                            Password = "$2a$11$zbCXqfN/DpWHhIKBcdGLHuTgpyH8ZldJPI9pThQOVek270xYm767u",
                             UserName = "jack.martin"
                         },
                         new
                         {
-                            Id = "250d2cb7-c3a6-4ec8-beca-5199a9e4d1f1",
-                            CreatedAt = new DateTime(2026, 1, 10, 18, 31, 22, 640, DateTimeKind.Local).AddTicks(32),
+                            Id = "9de2913e-a560-43e9-b8ca-205916cbea7f",
+                            CreatedAt = new DateTime(2026, 1, 11, 17, 1, 16, 379, DateTimeKind.Local).AddTicks(4322),
                             Email = "karen_lee@example.com",
                             IsActive = true,
                             IsAdmin = false,
-                            Password = "$2a$11$EFgkYV1IMEYcl8V0jtqFgeHQVYbZRVKDxjLMN02kwoc/NNJq1QWGG",
+                            Password = "$2a$11$KZmlYQTY0rXLM8kO9w2Po.7SvniUqRTvM0KbsdjtVgWd0j8Xfqkwa",
                             UserName = "karen_lee"
                         },
                         new
                         {
-                            Id = "4c28aeb6-408a-45fd-a461-5b3cc298deea",
-                            CreatedAt = new DateTime(2026, 1, 10, 18, 31, 22, 802, DateTimeKind.Local).AddTicks(2264),
+                            Id = "0bd0f8a1-c2b0-4e6e-b10e-41c58d0f1797",
+                            CreatedAt = new DateTime(2026, 1, 11, 17, 1, 16, 508, DateTimeKind.Local).AddTicks(6015),
                             Email = "liam.harris@example.com",
                             IsActive = true,
                             IsAdmin = false,
-                            Password = "$2a$11$94bdh.M3IhWSdauBDour/uJt5IK0PLlDf4DC1HlhVF4FBztHvzike",
+                            Password = "$2a$11$qLb063/ZNVbLrVVkXVn5wetalCWGXQpDeiQgMRbytN/viPoLp0GBS",
                             UserName = "liam.harris"
                         },
                         new
                         {
-                            Id = "aa4fa48b-e31d-4df5-ab97-3444e0a8fb4e",
-                            CreatedAt = new DateTime(2026, 1, 10, 18, 31, 22, 933, DateTimeKind.Local).AddTicks(9975),
+                            Id = "67c51451-1a36-450a-b10a-d6ffb62a4f85",
+                            CreatedAt = new DateTime(2026, 1, 11, 17, 1, 16, 636, DateTimeKind.Local).AddTicks(5325),
                             Email = "mia_wilson@example.com",
                             IsActive = true,
                             IsAdmin = false,
-                            Password = "$2a$11$lvK8Nowca1XwZTjfxOn72uxJXv0Rp9E1SPLLwH9lXq3mgUhPveMue",
+                            Password = "$2a$11$2mGV5eVux8vxJZ8IguOAQu5pOGHSbqB4bdwdAAgSVoN5w5rTepXbe",
                             UserName = "mia_wilson"
                         },
                         new
                         {
-                            Id = "fc5e9f04-fdbe-4fda-9965-d7ccabc80615",
-                            CreatedAt = new DateTime(2026, 1, 10, 18, 31, 23, 64, DateTimeKind.Local).AddTicks(3278),
+                            Id = "9b3ba930-c8d8-4796-9c87-920393880df6",
+                            CreatedAt = new DateTime(2026, 1, 11, 17, 1, 16, 764, DateTimeKind.Local).AddTicks(6286),
                             Email = "noah.clark@example.com",
                             IsActive = false,
                             IsAdmin = false,
-                            Password = "$2a$11$Wa0HHgo5jIBGySvqBIdhSehPF4KSddDwR3XdNqAZyIca2wLewn9.2",
+                            Password = "$2a$11$.QliIQvDHAhLgSkK5qfsKeHRuK8YsCUmbIYVnaUsDRuaCDChkHFBG",
                             UserName = "noah.clark"
                         },
                         new
                         {
-                            Id = "92c19972-0957-46c5-a070-f062461697d8",
-                            CreatedAt = new DateTime(2026, 1, 10, 18, 31, 23, 192, DateTimeKind.Local).AddTicks(4831),
+                            Id = "918d5e65-bd09-4654-a6e0-d8e3c53f5064",
+                            CreatedAt = new DateTime(2026, 1, 11, 17, 1, 16, 895, DateTimeKind.Local).AddTicks(3105),
                             Email = "olivia_moore@example.com",
                             IsActive = true,
                             IsAdmin = false,
-                            Password = "$2a$11$fwi7rrpiGJAMqqHWZQECguB/BB8wJOSnmK8xDbmWQPTCYMXbJkOkm",
+                            Password = "$2a$11$zYs2cMSgKLQ7iE9w/0NDw.VWtqRPY47j.NSDJfa2STgjbUJPujioS",
                             UserName = "olivia_moore"
                         },
                         new
                         {
-                            Id = "d9eaa607-4682-421c-808f-3546d606dded",
-                            CreatedAt = new DateTime(2026, 1, 10, 18, 31, 23, 322, DateTimeKind.Local).AddTicks(9209),
+                            Id = "52bfe38c-26f1-4d88-9d4a-d72679dea98f",
+                            CreatedAt = new DateTime(2026, 1, 11, 17, 1, 17, 26, DateTimeKind.Local).AddTicks(3249),
                             Email = "peter.evans@example.com",
                             IsActive = true,
                             IsAdmin = false,
-                            Password = "$2a$11$rVuLd8U9OJAw0WeR0RDZlu4YBLh1yJZF06YuVW8JrJI8I4q.qBsTG",
+                            Password = "$2a$11$G.DyTwpXyThx1AtYdSnJY..VZ9JTrktBotHkdMaIfwqR7D9kyhUbC",
                             UserName = "peter.evans"
                         },
                         new
                         {
-                            Id = "3486858e-005b-4182-8f76-a277d3c953f7",
-                            CreatedAt = new DateTime(2026, 1, 10, 18, 31, 23, 452, DateTimeKind.Local).AddTicks(4326),
+                            Id = "b18af8f0-e9a8-4ed1-a0ff-0c83851029d6",
+                            CreatedAt = new DateTime(2026, 1, 11, 17, 1, 17, 156, DateTimeKind.Local).AddTicks(9817),
                             Email = "quinn_taylor@example.com",
                             IsActive = false,
                             IsAdmin = false,
-                            Password = "$2a$11$oYnTDTfRLIDufdkp26jreutWIsjeI0suUYShclW9S80kAr.x/PmFm",
+                            Password = "$2a$11$pY8vHxg3myNvUFXd1PcNP.pNXCtLDvSOnucWGy2MT8L2k2MlT02iK",
                             UserName = "quinn_taylor"
                         },
                         new
                         {
-                            Id = "ac9e2655-cc94-4b2c-8dd4-d5f0a9ceea68",
-                            CreatedAt = new DateTime(2026, 1, 10, 18, 31, 23, 582, DateTimeKind.Local).AddTicks(5180),
+                            Id = "34876b45-0600-49e4-83aa-860af1b66505",
+                            CreatedAt = new DateTime(2026, 1, 11, 17, 1, 17, 284, DateTimeKind.Local).AddTicks(9641),
                             Email = "rachel.adams@example.com",
                             IsActive = true,
                             IsAdmin = false,
-                            Password = "$2a$11$EkI7Xp8P0bMC8y9QGesQDOnMz6v0JzSPxNdwcJTLArqTG87Xhm.fq",
+                            Password = "$2a$11$fXJlcqjgHJBOKpTutGt2o.C.8yR6.csCX7DgGWT8VIIqbn4BCtfj6",
                             UserName = "rachel.adams"
                         },
                         new
                         {
-                            Id = "5cae815d-7048-463e-9f3b-32aad7434fc1",
-                            CreatedAt = new DateTime(2026, 1, 10, 18, 31, 23, 712, DateTimeKind.Local).AddTicks(685),
+                            Id = "0e2ac754-7322-48d8-be25-098ed83fce09",
+                            CreatedAt = new DateTime(2026, 1, 11, 17, 1, 17, 414, DateTimeKind.Local).AddTicks(6980),
                             Email = "samuel_king@example.com",
                             IsActive = true,
                             IsAdmin = false,
-                            Password = "$2a$11$SjrLC.O4xI5Kw1Kn8mRhJuoJzjgrdrSSaFN1r3K1FAtMTzQ4Hgp4C",
+                            Password = "$2a$11$1ryCMolagAluuMEmdzOuy.nEPFbTnmJDoDb88vW/fnNGiOfH0vkL.",
                             UserName = "samuel_king"
                         },
                         new
                         {
-                            Id = "d62a8442-b295-48f8-8bb0-95739abb5f8c",
-                            CreatedAt = new DateTime(2026, 1, 10, 18, 31, 23, 840, DateTimeKind.Local).AddTicks(980),
+                            Id = "d3ea82b5-5680-4303-9e39-0f1c3ea77a37",
+                            CreatedAt = new DateTime(2026, 1, 11, 17, 1, 17, 542, DateTimeKind.Local).AddTicks(9207),
                             Email = "tina.white@example.com",
                             IsActive = true,
                             IsAdmin = false,
-                            Password = "$2a$11$HPeQFqG0XhlUDRcUNqLsxeOJ8.5ZsGIvH0bDJScktY6Hm68XRGKIi",
+                            Password = "$2a$11$XW06DZRcazVd0oBFFUwI2u/uJFiVg7Ws8KBwGSJ3lcaE0.xeV0cd.",
                             UserName = "tina.white"
                         });
                 });
 
-            modelBuilder.Entity("SO.Domain.Entity.ImageEntity", b =>
-                {
-                    b.HasOne("SO.Domain.Entity.ServiceOrderEntity", "ServiceOrderEntity")
-                        .WithMany()
-                        .HasForeignKey("ServiceOrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ServiceOrderEntity");
-                });
-
-            modelBuilder.Entity("SO.Domain.Entity.MaintenanceEntity", b =>
+            modelBuilder.Entity("SO.Domain.Entity.CheckListResultEntity", b =>
                 {
                     b.HasOne("SO.Domain.Entity.CheckListEntity", "CheckListEntity")
-                        .WithMany("Maintenances")
+                        .WithMany("CheckListResults")
                         .HasForeignKey("CheckListId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SO.Domain.Entity.ServiceOrderEntity", "ServiceOrderEntity")
-                        .WithMany("Maintenances")
+                        .WithMany("CheckListResults")
                         .HasForeignKey("ServiceOrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("CheckListEntity");
+
+                    b.Navigation("ServiceOrderEntity");
+                });
+
+            modelBuilder.Entity("SO.Domain.Entity.ImageEntity", b =>
+                {
+                    b.HasOne("SO.Domain.Entity.ServiceOrderEntity", "ServiceOrderEntity")
+                        .WithMany("Images")
+                        .HasForeignKey("ServiceOrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ServiceOrderEntity");
                 });
@@ -390,12 +422,14 @@ namespace SO.Infra.Migrations
 
             modelBuilder.Entity("SO.Domain.Entity.CheckListEntity", b =>
                 {
-                    b.Navigation("Maintenances");
+                    b.Navigation("CheckListResults");
                 });
 
             modelBuilder.Entity("SO.Domain.Entity.ServiceOrderEntity", b =>
                 {
-                    b.Navigation("Maintenances");
+                    b.Navigation("CheckListResults");
+
+                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("SO.Domain.Entity.UserEntity", b =>

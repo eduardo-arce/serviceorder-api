@@ -12,12 +12,12 @@ namespace SO.Domain.Entity
     {
         public ImageEntity(
             string name,
-            string serviceOrderId            
+            string serviceOrderId
         )
         {
             Id = Guid.NewGuid().ToString();
             Name = name;
-            HashName = $"{Guid.NewGuid().ToString().Replace("-", "_")}.{name.Split(".").Last()}";
+            HashName = $"{Guid.NewGuid()}";
             ServiceOrderId = serviceOrderId;
         }
 
@@ -26,6 +26,7 @@ namespace SO.Domain.Entity
         public string HashName { get; private set; }
         public string ServiceOrderId { get; set; }
 
+        [JsonIgnore]
         [ForeignKey(nameof(ServiceOrderId))]
         public ServiceOrderEntity ServiceOrderEntity { get; set; } = null!;
     }

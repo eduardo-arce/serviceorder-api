@@ -13,8 +13,8 @@ namespace SO.Api.Dependence.Shared
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Service Order API v1");
                     c.RoutePrefix = "swagger";
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "SO API v1");
                 });
             }
         }

@@ -18,6 +18,8 @@ var app = builder.Build();
 ConfigureSwagger.Initialize(app);
 ExecuteMigration.Initialize(app);
 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.UseMiddleware<AuthMiddleware>();

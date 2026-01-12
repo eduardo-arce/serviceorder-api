@@ -24,7 +24,8 @@ namespace SO.Infra.Database
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            UserSeerder.Execute(builder, _cryptography);
+            UserSeeder.Execute(builder, _cryptography);
+            CheckListSeeder.Execute(builder);
 
             base.OnModelCreating(builder);
         }

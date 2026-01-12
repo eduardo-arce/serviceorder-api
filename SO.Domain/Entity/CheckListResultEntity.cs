@@ -30,6 +30,7 @@ namespace SO.Domain.Entity
         [ForeignKey(nameof(CheckListId))]
         public CheckListEntity CheckListEntity { get; set; } = null!;
 
+        [JsonIgnore]
         [ForeignKey(nameof(ServiceOrderId))]
         public ServiceOrderEntity ServiceOrderEntity { get; set; } = null!;
     }

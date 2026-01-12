@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using SO.Domain.Entity;
-using SO.Infra.Repository;
-using SO.Service.IRepository.User;
+using SO.Service.IRepository;
 
 namespace SO.Api.Middleware
 {
@@ -19,15 +17,15 @@ namespace SO.Api.Middleware
                 return;
             }
 
-            var userRepository = context.HttpContext.RequestServices.GetService<IGetUserByIdRepository>();
+            var userRepository = context.HttpContext.RequestServices.GetService<IUserRepository>();
 
             if (userRepository == null)
             {
-                context.Result = new StatusCodeResult(500);
+                context.Result = new ForbidResult();
                 return;
             }
 
-            var user = await userRepository.Get(userId);
+            var user = await userRepository.GetByIdAsync(userId);
             if (user == null || !user.IsAdmin)
             {
                 context.Result = new ForbidResult();

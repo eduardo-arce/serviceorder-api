@@ -2,31 +2,33 @@ using SO.Domain.DTO.User;
 using SO.Domain.Entity;
 using SO.Domain.IUseCase.User;
 using SO.Service.Adapter.Cryptography;
-using SO.Service.IRepository.User;
+using SO.Service.IRepository;
 using SO.Shared.Util;
 
 namespace SO.Service.UseCase.User
 {
     public class SignIn : ISignIn
     {
-        private readonly IGetUserByEmailRepository _getUser;
+        private readonly IUserRepository _userRepository;
         private ICryptography _cryptography;
         private readonly IToken _token;
 
         public SignIn(
-            IGetUserByEmailRepository getUser,
+            IUserRepository userRepository,
             ICryptography cryptography,
             IToken token
         )
         {
-            _getUser = getUser;
+            _userRepository = userRepository;
             _cryptography = cryptography;
             _token = token;
         }
 
         public async Task<Result<SignInOutputDTO?>> Execute(SignInInputDTO input)
         {
-            UserEntity? user = await _getUser.Get(input.Login);
+            UserEntity? user = await _userRepository.FindFirstOrDefaultAsync(
+                item => item.Email == input.Login || item.UserName == input.Login
+            );
 
             if (user is null)
             {

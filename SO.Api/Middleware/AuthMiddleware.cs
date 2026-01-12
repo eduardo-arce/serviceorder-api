@@ -1,6 +1,9 @@
 ﻿using SO.Shared.Util;
 using SO.Domain.Entity;
 using SO.Domain.IUseCase.User;
+using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SO.Api.Middleware
 {
@@ -18,22 +21,51 @@ namespace SO.Api.Middleware
             IValidateUser validateUser
         )
         {
+            var endpoint = context.GetEndpoint();
+
+            if (endpoint?.Metadata.GetMetadata<IAllowAnonymous>() != null)
+            {
+                await _next(context);
+                return;
+            }
+
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
-            if (token is not null)
-                await AttachUserToContext(context, validateUser, token);
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                await Unauthorized(context, "Token not provided");
+                return;
+            }
+
+            Result<UserEntity?> result = await validateUser.Validate(token);
+
+            if (!result.IsSuccess || result.Content == null)
+            {
+                await Unauthorized(context, result.Message);
+                return;
+            }
+
+            context.Items["User"] = result.Content;
 
             await _next(context);
         }
 
-        private async Task AttachUserToContext(
+        private static async Task Unauthorized(
             HttpContext context,
-            IValidateUser validateUser,
-            string token
+            string message
         )
         {
-            Result<UserEntity?> user = await validateUser.Validate(token);
-            context.Items["User"] = user.Content;
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            context.Response.ContentType = "application/json";
+
+            var response = Result<object>.Unauthorized(
+                message: message,
+                content: null
+            );
+
+            await context.Response.WriteAsync(
+                JsonSerializer.Serialize(response)
+            );
         }
     }
 }

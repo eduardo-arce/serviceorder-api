@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SO.Domain.Entity;
 using SO.Domain.IUseCase.User;
 using SO.Service.Adapter.Cryptography;
-using SO.Service.IRepository.User;
+using SO.Service.IRepository;
 using SO.Shared.Util;
 
 namespace SO.Service.UseCase.User
@@ -14,15 +14,15 @@ namespace SO.Service.UseCase.User
     public class ValidateUser : IValidateUser
     {
         private readonly IToken _token;
-        private readonly IGetUserByIdRepository _getUser;
+        private readonly IUserRepository _userRepository;
 
         public ValidateUser(
             IToken token,
-            IGetUserByIdRepository getUser
+            IUserRepository userRepository
         )
         {
             _token = token;
-            _getUser = getUser;
+            _userRepository = userRepository;
         }
 
         public async Task<Result<UserEntity?>> Validate(string? accessToken)
@@ -37,7 +37,7 @@ namespace SO.Service.UseCase.User
                 );
             }
 
-            UserEntity? user = await _getUser.Get(userId);
+            UserEntity? user = await _userRepository.GetByIdAsync(userId);
 
             if (user == null)
             {
